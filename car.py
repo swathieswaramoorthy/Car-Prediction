@@ -5,35 +5,27 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import numpy as np
 
-# Load the dataset
 file_path = 'car data.csv'
 car_data = pd.read_csv(file_path)
 
-# Data Preprocessing
-# Dropping the Car_Name column as it might not contribute meaningfully to the prediction
 car_data = car_data.drop('Car_Name', axis=1)
 
-# Creating a new column for the car's age
 car_data['Car_Age'] = 2024 - car_data['Year']
 car_data = car_data.drop('Year', axis=1)
 
-# Encoding categorical variables
 categorical_features = ['Fuel_Type', 'Selling_type', 'Transmission']
-encoder = OneHotEncoder(sparse_output=False, drop='first')  # Using updated parameter
+encoder = OneHotEncoder(sparse_output=False, drop='first') 
 encoded_features = encoder.fit_transform(car_data[categorical_features])
 
-# Converting encoded features to a DataFrame
 encoded_features_df = pd.DataFrame(encoded_features, columns=encoder.get_feature_names_out(categorical_features))
 
-# Merging encoded features and dropping original columns
 car_data = pd.concat([car_data, encoded_features_df], axis=1)
 car_data = car_data.drop(categorical_features, axis=1)
 
-# Splitting data into features (X) and target (y)
 X = car_data.drop('Selling_Price', axis=1)
 y = car_data['Selling_Price']
 
-# Scaling the numerical features
+
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
 
