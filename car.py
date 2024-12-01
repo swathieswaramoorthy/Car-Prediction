@@ -6,7 +6,6 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import numpy as np
 file_path = 'car data.csv'
 car_data = pd.read_csv(file_path)
-
 car_data = car_data.drop('Car_Name', axis=1)
 
 car_data['Car_Age'] = 2024 - car_data['Year']
