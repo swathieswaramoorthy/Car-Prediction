@@ -26,23 +26,18 @@ y = car_data['Selling_Price']
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
 
-# Splitting into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Training the KNN model
-knn_model = KNeighborsRegressor(n_neighbors=5)  # Using k=5 by default
+knn_model = KNeighborsRegressor(n_neighbors=5) 
 knn_model.fit(X_train, y_train)
 
-# Making predictions
 y_pred = knn_model.predict(X_test)
 
-# Evaluating the model
 mae = mean_absolute_error(y_test, y_pred)
 mse = mean_squared_error(y_test, y_pred)
 rmse = np.sqrt(mse)
 r2 = r2_score(y_test, y_pred)
 
-# Printing evaluation metrics
 print(f"Model Performance:")
 print(f"Mean Absolute Error (MAE): {mae:.2f}")
 print(f"Mean Squared Error (MSE): {mse:.2f}")
